@@ -1,22 +1,22 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using MoviesApp.Data;
 using MoviesApp.Data.Models;
+using MoviesApp.Data.Services;
 
 namespace MoviesApp.Pages;
 
 public class MoviesModel : PageModel
 {
-    private readonly AppDbContext _context;
+    private readonly IMoviesService _service;
 
     public List<Movie> Movies { get; set; }
 
-    public MoviesModel(AppDbContext context)
+    public MoviesModel(IMoviesService service)
     {
-        _context = context;
+        _service = service;
     }
 
     public void OnGet()
     {
-        Movies = _context.Movies.ToList();
+        Movies = _service.GetAll();
     }
 }

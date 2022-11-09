@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using MoviesApp.Data;
 using MoviesApp.Data.Models;
+using MoviesApp.Data.Services;
 
 namespace MoviesApp.Pages;
 
@@ -8,17 +8,15 @@ public class MovieModel : PageModel
 {
     public Movie? Movie { get; set; }
 
-    private readonly AppDbContext _context;
+    private readonly IMoviesService _service;
 
-    public MovieModel(AppDbContext context)
+    public MovieModel(IMoviesService service)
     {
-        _context = context;
+        _service = service;
     }
 
     public void OnGet(int id)
     {
-        Movie = _context.Movies.FirstOrDefault(m => m.Id == id);
-
-        
+        Movie = _service.Get(id);        
     }
 }
