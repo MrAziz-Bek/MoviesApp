@@ -23,8 +23,10 @@ namespace MoviesApp.Pages
             string value = $"{Movie.Title} - {Movie.Rate} - {Movie.Description}";
             Console.WriteLine(value);
 
-            return Page();
-            // return Redirect("Movies");
+            if (!ModelState.IsValid)
+                return Page();
+
+            return Redirect("Movies");
         }
     }
 }
