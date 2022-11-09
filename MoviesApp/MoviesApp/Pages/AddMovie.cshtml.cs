@@ -3,31 +3,30 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using MoviesApp.Data;
 using MoviesApp.Data.Models;
 
-namespace MoviesApp.Pages
+namespace MoviesApp.Pages;
+
+public class AddMovieModel : PageModel
 {
-    public class AddMovieModel : PageModel
+    [BindProperty]
+    public Movie Movie { get; set; }
+
+    private readonly AppDbContext _context;
+
+    public AddMovieModel(AppDbContext context)
     {
-        [BindProperty]
-        public Movie Movie { get; set; }
+        _context = context;
+    }
 
-        private readonly AppDbContext _context;
+    public void OnGet() { }
 
-        public AddMovieModel(AppDbContext context)
-        {
-            _context = context;
-        }
+    public IActionResult OnPost()
+    {
+        if (!ModelState.IsValid)
+            return Page();
 
-        public void OnGet() { }
+        _context.Movies.Add(Movie);
+        _context.SaveChanges();
 
-        public IActionResult OnPost()
-        {
-            if (!ModelState.IsValid)
-                return Page();
-
-            _context.Movies.Add(Movie);
-            _context.SaveChanges();
-
-            return Redirect("Movies");
-        }
+        return Redirect("Movies");
     }
 }

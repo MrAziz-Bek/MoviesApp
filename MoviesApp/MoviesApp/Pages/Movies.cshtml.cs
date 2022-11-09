@@ -1,45 +1,22 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using MoviesApp.Data;
 using MoviesApp.Data.Models;
 
-namespace MoviesApp.Pages
-{
-    public class MoviesModel : PageModel
-    {
-        public List<Movie> Movies { get; set; }
+namespace MoviesApp.Pages;
 
-        public void OnGet()
-        {
-            Movies = new List<Movie>()
-            {
-                new Movie()
-                {
-                    Id = 1,
-                    Title = "First movie title",
-                    Rate = 10,
-                    Description = "First movie description goes here..."
-                },
-                new Movie()
-                {
-                    Id = 2,
-                    Title = "Second movie title",
-                    Rate = 7,
-                    Description = "Second movie description goes here..."
-                },
-                new Movie()
-                {
-                    Id = 3,
-                    Title = "Third movie title",
-                    Rate = 5,
-                    Description = "Third movie description goes here..."
-                },
-                new Movie()
-                {
-                    Id = 4,
-                    Title = "Fourth movie title",
-                    Rate = 10,
-                    Description = "Fourth movie description goes here..."
-                }
-            };
-        }
+public class MoviesModel : PageModel
+{
+    private readonly AppDbContext _context;
+
+    public List<Movie> Movies { get; set; }
+
+    public MoviesModel(AppDbContext context)
+    {
+        _context = context;
+    }
+
+    public void OnGet()
+    {
+        Movies = _context.Movies.ToList();
     }
 }
