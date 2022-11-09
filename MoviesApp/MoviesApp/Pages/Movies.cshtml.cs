@@ -1,21 +1,45 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
+using MoviesApp.Data.Models;
 
 namespace MoviesApp.Pages
 {
-    public class Movies : PageModel
+    public class MoviesModel : PageModel
     {
-        public Movies()
-        {
-        }
+        public List<Movie> Movies { get; set; }
 
         public void OnGet()
         {
+            Movies = new List<Movie>()
+            {
+                new Movie()
+                {
+                    Id = 1,
+                    Title = "First movie title",
+                    Rate = 10,
+                    Description = "First movie description goes here..."
+                },
+                new Movie()
+                {
+                    Id = 2,
+                    Title = "Second movie title",
+                    Rate = 7,
+                    Description = "Second movie description goes here..."
+                },
+                new Movie()
+                {
+                    Id = 3,
+                    Title = "Third movie title",
+                    Rate = 5,
+                    Description = "Third movie description goes here..."
+                },
+                new Movie()
+                {
+                    Id = 4,
+                    Title = "Fourth movie title",
+                    Rate = 10,
+                    Description = "Fourth movie description goes here..."
+                }
+            };
         }
     }
 }
