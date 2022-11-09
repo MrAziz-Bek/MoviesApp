@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using MoviesApp.Data;
 using MoviesApp.Data.Services;
@@ -5,7 +6,17 @@ using MoviesApp.Data.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
+
+// Authentication
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options => 
+    {
+        options.LoginPath = "/Login";
+        options.AccessDeniedPath = "/Denied";
+    });
+
 builder.Services.AddScoped<IMoviesService, MoviesService>();
+
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
