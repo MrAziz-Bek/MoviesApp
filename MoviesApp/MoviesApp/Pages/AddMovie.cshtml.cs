@@ -14,6 +14,11 @@ namespace MoviesApp.Pages
         [BindProperty]
         public string Description { get; set; }
 
+        // public void OnGetMyOnClick()
+        // {
+        //     string stophere = "";
+        // }
+
         public void OnGet()
         {
             Title = "Welcome";
@@ -23,7 +28,7 @@ namespace MoviesApp.Pages
         {
             string value = $"{Title} - {Rate} - {Description}";
             Console.WriteLine(value);
-            
+
             return Page();
             // return Redirect("Movies");
         }
