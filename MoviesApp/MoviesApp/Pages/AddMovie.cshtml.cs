@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using MoviesApp.Data;
 using MoviesApp.Data.Models;
 
 namespace MoviesApp.Pages
@@ -9,22 +10,22 @@ namespace MoviesApp.Pages
         [BindProperty]
         public Movie Movie { get; set; }
 
-        // public void OnGetMyOnClick()
-        // {
-        //     string stophere = "";
-        // }
+        private readonly AppDbContext _context;
 
-        public void OnGet()
+        public AddMovieModel(AppDbContext context)
         {
+            _context = context;
         }
+
+        public void OnGet() { }
 
         public IActionResult OnPost()
         {
-            string value = $"{Movie.Title} - {Movie.Rate} - {Movie.Description}";
-            Console.WriteLine(value);
-
             if (!ModelState.IsValid)
                 return Page();
+
+            _context.Movies.Add(Movie);
+            _context.SaveChanges();
 
             return Redirect("Movies");
         }
