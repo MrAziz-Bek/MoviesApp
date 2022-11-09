@@ -1,0 +1,2 @@
+# What is ASP.NET Razor Pages?
+- "ASP.NET Razor Pages is a server-side, page-focused framework that enables building dynamic, data-driven websites with clean separation of concerns." - <a href="https://learnrazorpages.com">learnrazorpages.com<a/>
